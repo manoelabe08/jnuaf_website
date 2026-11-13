@@ -1,0 +1,50 @@
+<?php
+
+return [
+    'accepted' => 'Le champ :attribute doit être accepté.',
+    'boolean' => 'Le champ :attribute doit être vrai ou faux.',
+    'confirmed' => 'La confirmation du champ :attribute ne correspond pas.',
+    'email' => 'Adresse email invalide, ex. nom@domaine.ci',
+    'enum' => 'La valeur sélectionnée pour :attribute est invalide.',
+    'exists' => 'La valeur sélectionnée pour :attribute est invalide.',
+    'file' => 'Le champ :attribute doit être un fichier.',
+    'image' => 'Le champ :attribute doit être une image.',
+    'in' => 'La valeur sélectionnée pour :attribute est invalide.',
+    'integer' => 'Le champ :attribute doit être un nombre entier.',
+    'max' => [
+        'file' => 'Le fichier :attribute ne doit pas dépasser :max Ko.',
+        'numeric' => 'Le champ :attribute ne doit pas dépasser :max.',
+        'string' => 'Le champ :attribute ne doit pas dépasser :max caractères.',
+    ],
+    'mimes' => 'Le champ :attribute doit être un fichier de type : :values.',
+    'min' => [
+        'numeric' => 'Le champ :attribute doit être au moins :min.',
+        'string' => 'Le champ :attribute doit contenir au moins :min caractères.',
+    ],
+    'prohibited' => 'Le champ :attribute doit rester vide.',
+    'regex' => 'Le format du champ :attribute est invalide.',
+    'required' => 'Le champ :attribute est obligatoire.',
+    'required_if' => 'Le champ :attribute est obligatoire.',
+    'string' => 'Le champ :attribute doit être un texte.',
+    'unique' => 'Cette valeur de :attribute est déjà utilisée.',
+    'password' => [
+        'letters' => 'Le mot de passe doit contenir au moins une lettre.',
+        'mixed' => 'Le mot de passe doit contenir au moins une majuscule et une minuscule.',
+        'numbers' => 'Le mot de passe doit contenir au moins un chiffre.',
+        'symbols' => 'Le mot de passe doit contenir au moins un symbole.',
+        'uncompromised' => 'Ce mot de passe est apparu dans une fuite de données. Choisissez-en un autre.',
+    ],
+
+    'attributes' => [
+        'email' => 'email',
+        'password' => 'mot de passe',
+        'name' => 'nom',
+        'title' => 'titre',
+        'edition' => 'édition',
+        'photo' => 'photo',
+        'role' => 'rôle',
+        'slot' => 'créneau',
+        'kind' => 'type',
+        'session' => 'session',
+    ],
+];

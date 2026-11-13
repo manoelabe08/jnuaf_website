@@ -1,0 +1,2 @@
+{{-- Dans resources/views/layouts/admin.blade.php, à l'intérieur du bloc @if ($u->isAdmin()), par exemple sous Documents partenaires. --}}
+<a class="nav" href="{{ route('admin.newsletter.index') }}" @if (request()->routeIs('admin.newsletter.*')) aria-current="page" @endif>Newsletter</a>

@@ -1,0 +1,87 @@
+# Déploiement automatique de https://test.jnuaf.org (LWS cPanel, sans SSH).
+#
+# À chaque push sur la branche « main » (ou manuellement depuis l'onglet Actions) :
+#   1. les tests doivent passer, sinon rien n'est envoyé ;
+#   2. le site est préparé avec les dépendances de production ;
+#   3. il est envoyé par FTP (seuls les fichiers modifiés sont transférés) ;
+#   4. l'adresse protégée /_deploy applique la mise à jour (tables, caches).
+#
+# Secrets à créer dans GitHub > Settings > Secrets and variables > Actions :
+#   FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, DEPLOY_TOKEN
+# Variables facultatives (même écran, onglet « Variables ») :
+#   FTP_PROTOCOL (ftps par défaut, mettre « ftp » si l'hébergeur refuse le chiffrement)
+#   FTP_SERVER_DIR (./ par défaut : le compte FTP pointe déjà sur le dossier du site)
+#   SITE_URL (https://test.jnuaf.org par défaut)
+
+name: Déploiement test.jnuaf.org
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Jamais deux déploiements en même temps
+concurrency:
+  group: deploy-test
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, gd, intl, zip, fileinfo, pdo_sqlite, pdo_mysql
+          coverage: none
+
+      - name: Dépendances (avec les outils de test)
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Tests
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          php artisan test
+
+      - name: Dépendances de production uniquement
+        run: |
+          rm -f .env bootstrap/cache/*.php
+          composer install --no-dev --optimize-autoloader --no-interaction --no-progress --prefer-dist
+          rm -f bootstrap/cache/*.php
+
+      - name: Envoi FTP vers l'hébergement
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          # Le certificat FTP des mutualisés est souvent celui du serveur, pas de jnuaf.org :
+          # la connexion reste chiffrée, seule la vérification du nom est assouplie.
+          security: loose
+          server-dir: ${{ vars.FTP_SERVER_DIR || './' }}
+          # L'outil ne supprime que les fichiers qu'il a lui-même envoyés : le .env, les CV, les photos
+          # et les caches créés sur le serveur ne sont jamais touchés. Les dossiers storage/* du dépôt
+          # ne contiennent que des .gitignore (les dossiers doivent exister côté serveur).
+          exclude: |
+            **/.git*/**
+            **/node_modules/**
+            .github/**
+            tests/**
+            deploy/**
+            .env
+            .env.backup
+            .env.production
+
+      - name: Installation sur le serveur (tables, caches)
+        run: |
+          curl --fail-with-body --silent --show-error --max-time 300 \
+            -X POST -H "X-Deploy-Token: ${{ secrets.DEPLOY_TOKEN }}" \
+            "${{ vars.SITE_URL || 'https://test.jnuaf.org' }}/_deploy"

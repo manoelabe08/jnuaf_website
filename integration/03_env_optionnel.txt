@@ -1,0 +1,4 @@
+# Facultatif : valeurs prudentes par défaut, à vérifier avec les limites réelles de votre offre SMTP.
+NEWSLETTER_PER_MINUTE=5
+NEWSLETTER_PER_HOUR=100
+# Le module réutilise MAIL_* et PARTNER_PRIVATE_ROOT existants. Ne jamais publier le .env.

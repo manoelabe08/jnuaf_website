@@ -1,0 +1,3 @@
+// Ajouter UNE FOIS en bas de routes/web.php, en dehors de tous les groupes.
+// Conserver aussi le require existant de partner-portal.php.
+require __DIR__.'/newsletter.php';
