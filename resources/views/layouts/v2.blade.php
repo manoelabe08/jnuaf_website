@@ -19,6 +19,7 @@
 
 <link rel="stylesheet" href="{{ asset('css/site.css') }}?v=14">
 
+<link rel="stylesheet" href="{{ asset('css/sponsors.css') }}?v=2">
 </head>
 
 <body>
@@ -41,6 +42,7 @@
 
         
         <li><a href="{{ route('v2.editions') }}">&Eacute;ditions</a></li>
+       <li><a href="{{ route('v2.programmes') }}">Programmes</a></li>
         
         <li><a href="{{ route('v2.speakers') }}">Intervenantes</a></li>
         <li><a href="{{ route('v2.committee') }}">Comit&eacute;</a></li>
@@ -69,11 +71,21 @@
 </header>
 
 <main id="top">
+@if (session('flash'))
+    <div class="flash" role="status">
+        <div class="wrap">{{ session('flash') }}</div>
+    </div>
+@endif
 @if (! empty($pageDraft))<div class="flash" role="status"><div class="wrap">Brouillon : cette page n'est visible que par les administrateurs.</div></div>@endif
 
   @yield('content')
 
 </main>
+
+@if (! request()->routeIs('v2.chat', 'v2.home', 'v2.old_index', 'v2.components', 'admin.*'))
+    @include('home.sponsors')
+@endif
+
 
 <footer>
   <div class="wrap">
@@ -86,9 +98,9 @@
       </p>
       <x-social-links />
     </div>
-    <div><h4>{{ config('jnuaf.organisation.name') }}</h4><ul><li><a href="{{ route('v2.about') }}#qui-sommes-nous">Qui sommes-nous</a></li><li><a href="{{ route('v2.editions') }}#programmes">Programmes</a></li></ul></div>
-    <div><h4>Pratique</h4><ul><li><a href="{{ route('home') }}#evenement">JNUAF {{ config('jnuaf.edition') }}</a></li><li><a href="{{ route('v2.register') }}">Inscription</a></li><li><a href="{{ route('v2.team') }}">&Eacute;quipe</a></li><li><a href="{{ route('v2.legal') }}">Mentions l&eacute;gales</a></li></ul></div>
-    <p class="fine"><span>&copy; {{ config('jnuaf.edition') }} JNUAF &middot; Journ&eacute;e du Num&eacute;rique au F&eacute;minin</span><span>P&ocirc;le Tech &amp; Outils Num&eacute;riques</span><span>Version 2 (pr&eacute;visualisation)</span></p>
+    <div><h4>{{ config('jnuaf.organisation.name') }}</h4><ul><li><a href="{{ route('v2.about') }}#qui-sommes-nous">Qui sommes-nous</a></li><li><a href="{{ route('v2.programmes') }}">Programmes</a></li></ul></div>
+    <div><h4>Pratique</h4><ul><li><a href="{{ route('v2.editions') }}">JNUAF {{ config('jnuaf.edition') }}</a></li><li><a href="{{ route('v2.register') }}">Inscription</a></li><li><a href="{{ route('v2.team') }}">&Eacute;quipe</a></li><li><a href="{{ route('v2.legal') }}">Mentions l&eacute;gales</a></li></ul></div>
+    <p class="fine"><span>&copy; {{ config('jnuaf.edition') }} JNUAF &middot; Journ&eacute;e du Num&eacute;rique au F&eacute;minin</span><span>P&ocirc;le Tech &amp; Outils Num&eacute;riques</span></p>
   </div>
 </footer><!-- jnuaf-s60b -->
 
@@ -114,9 +126,10 @@
 
 </script>
 
-<link rel="stylesheet" href="{{ asset('vendor/jnuaf-chatbot/chatbot.css') }}?v=s107">
-<script src="{{ asset('vendor/jnuaf-chatbot/chatbot.js') }}?v=s107" data-base="{{ url('chatbot') }}" defer></script><!-- jnuaf-s105 -->
-<script>(function(){var h=document.querySelector('.nav'),b=document.querySelector('.burger');if(!h||!b){return;}var s=function(o){h.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'Fermer le menu':'Ouvrir le menu');};b.addEventListener('click',function(){s(!h.classList.contains('open'));});document.querySelectorAll('#mainNav a').forEach(function(a){a.addEventListener('click',function(){s(false);});});document.addEventListener('keydown',function(e){if(e.key==='Escape'){s(false);}});document.addEventListener('click',function(e){if(!h.contains(e.target)){s(false);}});})();</script>
+<link rel="stylesheet" href="{{ asset('vendor/jnuaf-chatbot/chatbot.css') }}?v=s108">
+<script src="{{ asset('js/site.js') }}?v=10" defer></script>
+<script src="{{ asset('vendor/jnuaf-chatbot/chatbot.js') }}?v=s108" data-base="{{ url('chatbot') }}" data-chat-url="{{ route('v2.chat') }}" data-home-url="{{ url('/') }}" defer></script><!-- jnuaf-s108 -->
+
 </body>
 
 </html>

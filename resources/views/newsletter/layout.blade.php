@@ -27,6 +27,6 @@ a{color:#14592A}.btn,button{display:inline-block;padding:12px 20px;border:0;bord
 @yield('content')
 <footer>
     <p>Journée du Numérique au Féminin · <a href="{{ route('home') }}">Site JNUAF</a></p>
-    <p>Contact : <a href="mailto:{{ config('partner_portal.contact_email') }}">{{ config('partner_portal.contact_email') }}</a> · <a href="{{ route('home') }}#confidentialite">Confidentialité</a></p>
+    <p>Contact : <a href="mailto:{{ config('partner_portal.contact_email') }}">{{ config('partner_portal.contact_email') }}</a> · <a href="{{ route('v2.legal') }}">Confidentialité</a></p>
 </footer>
 </main></body></html>

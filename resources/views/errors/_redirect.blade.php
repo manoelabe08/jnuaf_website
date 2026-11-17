@@ -45,7 +45,7 @@ p{line-height:1.55;margin:10px 0}
 
 <body>
 
-<main data-redirect="https://jnuaf.org/me/public" data-seconds="{{ $seconds ?? 10 }}">
+<main data-redirect="{{ url('/') }}" data-seconds="{{ $seconds ?? 10 }}">
 
 <img src="{{ asset('images/logo.jpg') }}" alt="JNUAF" width="56" height="56">
 
@@ -63,7 +63,7 @@ p{line-height:1.55;margin:10px 0}
 
 <div class="actions">
 
-<a class="btn" href="https://jnuaf.org/me/public" id="go">@if (! empty($auto))Retourner maintenant @else Retourner &agrave; l&#39;accueil @endif</a>
+<a class="btn" href="{{ url('/') }}" id="go">@if (! empty($auto))Retourner maintenant @else Retourner &agrave; l&#39;accueil @endif</a>
 
 @if (! empty($auto))
 

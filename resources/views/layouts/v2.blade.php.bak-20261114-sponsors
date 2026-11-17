@@ -1,0 +1,133 @@
+<!doctype html>
+
+<html lang="fr">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta name="robots" content="@yield('robots', 'noindex,nofollow')">
+@yield('head')
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<title>@yield('title', 'V2 - Prévisualisation') · JNUAF</title>
+
+<link rel="stylesheet" href="{{ asset('fonts/fonts.css') }}?v=1">
+
+<link rel="stylesheet" href="{{ asset('css/site.css') }}?v=14">
+
+</head>
+
+<body>
+
+<header class="nav">
+
+  <div class="wrap">
+
+    <a class="brand" href="{{ route('home') }}" aria-label="JNUAF v2">
+
+      <img class="brand-logo" src="{{ asset('images/logo.jpg') }}" alt="JNUAF" width="200" height="200">
+
+    </a>
+
+    <nav id="mainNav" aria-label="Navigation v2">
+
+      <ul>
+
+        <li><a href="{{ route('home') }}">Accueil</a></li>
+
+        
+        <li><a href="{{ route('v2.editions') }}">&Eacute;ditions</a></li>
+       <li><a href="{{ route('v2.programmes') }}">Programmes</a></li>
+        
+        <li><a href="{{ route('v2.speakers') }}">Intervenantes</a></li>
+        <li><a href="{{ route('v2.committee') }}">Comit&eacute;</a></li>
+        <li><a href="{{ route('v2.team') }}">&Eacute;quipe</a></li>
+        <li><a href="{{ route('v2.partners') }}">Partenaires</a></li>
+        <li><a href="{{ route('v2.about') }}">&Agrave; propos</a></li>
+        <li><a href="{{ route('v2.faq') }}">FAQ</a></li>
+        <li><a href="{{ route('blog.index') }}">Actualit&eacute;s</a></li>
+        
+
+      </ul>
+
+    </nav>
+
+    <div class="nav-actions">
+
+      <button type="button" id="theme-toggle" aria-label="Changer le mode d'affichage" title="Mode sombre ou clair" style="background:none;border:1.5px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--ink);font:inherit;cursor:pointer">☾</button>
+
+      <a class="btn btn-orange" href="{{ route('v2.register') }}">S&#39;inscrire</a>
+      <button class="burger" type="button" aria-controls="mainNav" aria-expanded="false" aria-label="Ouvrir le menu"><span></span></button>
+
+    </div>
+
+  </div>
+
+</header>
+
+<main id="top">
+@if (session('flash'))
+    <div class="flash" role="status">
+        <div class="wrap">{{ session('flash') }}</div>
+    </div>
+@endif
+@if (! empty($pageDraft))<div class="flash" role="status"><div class="wrap">Brouillon : cette page n'est visible que par les administrateurs.</div></div>@endif
+
+  @yield('content')
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div style="display:grid;gap:12px">
+      <span class="brand"><img class="brand-logo" src="{{ asset('images/logo.jpg') }}" alt="JNUAF" width="200" height="200"></span>
+      <p style="opacity:.8;max-width:42ch">
+        @foreach (config('jnuaf.contacts') as $c)
+          {{ $c['label'] }} : <a class="call-link" href="tel:{{ preg_replace('/[^\d+]/', '', $c['phone']) }}" data-call="{{ $c['phone'] }}">{{ $c['phone'] }}</a>@if (! $loop->last)<br>@endif
+        @endforeach
+      </p>
+      <x-social-links />
+    </div>
+    <div><h4>{{ config('jnuaf.organisation.name') }}</h4><ul><li><a href="{{ route('v2.about') }}#qui-sommes-nous">Qui sommes-nous</a></li><li><a href="{{ route('v2.programmes') }}">Programmes</a></li></ul></div>
+    <div><h4>Pratique</h4><ul><li><a href="{{ route('v2.editions') }}">JNUAF {{ config('jnuaf.edition') }}</a></li><li><a href="{{ route('v2.register') }}">Inscription</a></li><li><a href="{{ route('v2.team') }}">&Eacute;quipe</a></li><li><a href="{{ route('v2.legal') }}">Mentions l&eacute;gales</a></li></ul></div>
+    <p class="fine"><span>&copy; {{ config('jnuaf.edition') }} JNUAF &middot; Journ&eacute;e du Num&eacute;rique au F&eacute;minin</span><span>P&ocirc;le Tech &amp; Outils Num&eacute;riques</span></p>
+  </div>
+</footer><!-- jnuaf-s60b -->
+
+<script>
+
+(function(){
+
+  var b=document.getElementById('theme-toggle'); if(!b){return;}
+
+  var set=function(m){document.documentElement.setAttribute('data-theme',m);try{localStorage.setItem('jnuaf-theme',m)}catch(e){} b.textContent=m==='dark'?'☀':'☾';};
+
+  var cur=(function(){try{return localStorage.getItem('jnuaf-theme')||'auto'}catch(e){return 'auto'}})();
+
+  var dark=cur==='dark'||(cur==='auto'&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+  document.documentElement.setAttribute('data-theme', dark?'dark':'light');
+
+  b.textContent=dark?'☀':'☾';
+
+  b.addEventListener('click',function(){var isDark=document.documentElement.getAttribute('data-theme')==='dark';var next=isDark?'light':'dark';cur=next;set(next);});
+
+})();
+
+</script>
+
+<link rel="stylesheet" href="{{ asset('vendor/jnuaf-chatbot/chatbot.css') }}?v=s108">
+<script src="{{ asset('js/site.js') }}?v=10" defer></script>
+<script src="{{ asset('vendor/jnuaf-chatbot/chatbot.js') }}?v=s108" data-base="{{ url('chatbot') }}" data-chat-url="{{ route('v2.chat') }}" data-home-url="{{ url('/') }}" defer></script><!-- jnuaf-s108 -->
+
+</body>
+
+</html>
+
+
+<!-- jnuaf-s70 -->
+<!-- jnuaf-s71 -->

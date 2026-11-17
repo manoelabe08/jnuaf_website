@@ -26,7 +26,7 @@
           <article class="spk"><div @class(['avatar', 'o' => $loop->even]) aria-hidden="true">?</div><h3 class="spk-name">{{ $who }} à annoncer</h3><span class="spk-role">{{ $session }}</span></article>
         @endforeach
       @endforelse
-      <a class="spk spk-cta" href="#inscription" data-profile="intervenante"><b>Votre profil ici ?</b><span>Proposer une intervention →</span></a>
+      <a class="spk spk-cta" href="{{ route('v2.register') }}" data-profile="intervenante"><b>Votre profil ici ?</b><span>Proposer une intervention →</span></a>
     </div>
   </div>
 

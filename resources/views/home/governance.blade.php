@@ -16,6 +16,6 @@
         <div><h3>{{ $team }}</h3><p>{{ $text }}</p></div>
       @endforeach
     </div>
-    <p class="gal-note">Envie de vous engager dans l'une de ces équipes ou comme Point focal ? <a href="#comite">Candidatez au comité</a>.</p>
+    <p class="gal-note">Envie de vous engager dans l'une de ces équipes ou comme Point focal ? <a href="{{ route('v2.committee') }}">Candidatez au comité</a>.</p>
   </div>
 </section>

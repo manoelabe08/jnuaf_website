@@ -45,7 +45,7 @@
         $lines[] = 'Me désinscrire : '.$unsubscribeUrl;
     }
 
-    $lines[] = 'Confidentialité : '.route('home').'#confidentialite';
+    $lines[] = 'Confidentialité : '.route('v2.legal');
 
     echo implode(PHP_EOL, $lines).PHP_EOL;
 @endphp

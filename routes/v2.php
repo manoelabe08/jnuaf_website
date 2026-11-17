@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('v2.')->group(function () {
 
+    Route::get('/chat', fn () => view('v2.chat'))->name('chat');
+
     Route::get('/editions', fn () => view('v2.editions'))->middleware('page:editions')->name('editions');
+    Route::get('/programmes', fn () => view('v2.programs'))->middleware('page:programmes')->name('programmes');
 
     Route::get('/inscription', [V2PageController::class, 'register'])->middleware('page:register')->name('register');
 
@@ -51,18 +54,4 @@ Route::name('v2.')->group(function () {
 
 
 
-
-/* ---------- Pages v2 (Issues du découpage) ---------- */
-
-use App\Http\Controllers\Public\PageController;
-
-
-
-Route::get('/a-propos', [PageController::class, 'about'])->name('v2.about');
-
-Route::get('/programmes', [PageController::class, 'programs'])->name('v2.programs');
-
-Route::get('/gouvernance', [PageController::class, 'governance'])->name('v2.governance');
-
-Route::get('/faq', [PageController::class, 'faq'])->name('v2.faq');
 

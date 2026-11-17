@@ -45,7 +45,7 @@
                 ·
 
                 <a
-                    href="{{ route('home') }}#confidentialite"
+                    href="{{ route('v2.legal') }}"
                     style="color:#14592A"
                 >
                     Confidentialité

@@ -103,7 +103,7 @@
 
     <h2>Une question ?</h2>
 
-    <p>Écrivez-nous à <a href="mailto:team@jnuaf.org">team@jnuaf.org</a>. Retrouvez aussi notre <a href="{{ route('home') }}#confidentialite">politique de confidentialité</a>.</p>
+    <p>Écrivez-nous à <a href="mailto:team@jnuaf.org">team@jnuaf.org</a>. Retrouvez aussi notre <a href="{{ route('v2.legal') }}">politique de confidentialité</a>.</p>
 
   </div>
 

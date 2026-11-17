@@ -26,7 +26,7 @@
             <span>Identifiant de badge : <code>{{ session('registration.badge_code') }}</code></span>
           @endif
         </div>
-        <a class="btn btn-orange" href="{{ route('home') }}#inscription">Inscrire une autre personne</a>
+        <a class="btn btn-orange" href="{{ route('v2.register') }}">Inscrire une autre personne</a>
       </div>
     @else
       <form class="form-card" id="regForm" method="POST" enctype="multipart/form-data" action="{{ route('registration.store') }}" novalidate data-validate>
@@ -89,7 +89,7 @@
         </div>
 
         <div @class($f('accessibility_needs'))><label for="f-access">Besoins spécifiques (accessibilité, facultatif)</label><input id="f-access" name="accessibility_needs" value="{{ old('accessibility_needs') }}" placeholder="Ex. accès en fauteuil, interprète LSF…"></div>
-        <label class="consent" for="f-consent"><input type="checkbox" id="f-consent" name="consent_data" value="1" @checked(old('consent_data')) required> <span>J'accepte que mes données soient utilisées pour l'organisation de la JNUAF {{ config('jnuaf.edition') }} (<a href="#confidentialite">politique de confidentialité</a>). Je peux demander leur consultation ou leur suppression à tout moment. *</span></label>
+        <label class="consent" for="f-consent"><input type="checkbox" id="f-consent" name="consent_data" value="1" @checked(old('consent_data')) required> <span>J'accepte que mes données soient utilisées pour l'organisation de la JNUAF {{ config('jnuaf.edition') }} (<a href="{{ route('v2.legal') }}">politique de confidentialité</a>). Je peux demander leur consultation ou leur suppression à tout moment. *</span></label>
         @error('consent_data')<span class="err" style="color:var(--orange);font-weight:600;font-size:.8rem">{{ $message }}</span>@enderror
         <label class="consent" for="f-image"><input type="checkbox" id="f-image" name="consent_image" value="1" @checked(old('consent_image'))> <span>J'autorise la JNUAF à publier des photos et vidéos sur lesquelles j'apparais (site, galerie, réseaux sociaux). Facultatif.</span></label>
         <button class="btn btn-orange" type="submit">Envoyer mon inscription</button>

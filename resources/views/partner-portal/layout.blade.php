@@ -521,7 +521,7 @@
         </p>
 
         <p>
-            <a href="{{ route('home') }}#confidentialite">
+            <a href="{{ route('v2.legal') }}">
                 Confidentialité
             </a>
             ·
